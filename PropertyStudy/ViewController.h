@@ -9,13 +9,14 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewController : UIViewController
-
+{
+    NSString *ivar7;
+}
 @property (nonatomic ,copy) NSString *property1;
 @property (nonatomic ,copy) NSString *property2;
 @property (nonatomic ,copy) NSString *property3;
 @property (nonatomic ,copy) NSString *property4;
 @property (nonatomic ,copy) NSString *property5;
-
 @end
 
 
