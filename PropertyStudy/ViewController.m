@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import <objc/runtime.h>
 #import "DYSPeople.h"
+#import "DYSDisablePeople.h"
 
 @interface ViewController (){
     NSString *_property3;
@@ -33,6 +34,8 @@
 @synthesize property4 = property4Exc;
 @synthesize property5 = property5Exc;
 
+@synthesize property10;
+
 //Property 'property2' is already implemented
 //@dynamic property2;
 
@@ -42,15 +45,28 @@
     使用dynamic的时候ivar少了_property1，method 少了property1和setProperty1两个方法。如果不重写set和get方法，则点语法会报错。
  */
 //@dynamic property1;
+@dynamic property9;
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    [self dys_propertyOfIvar];
-//    [self dys_propertyOfMethod];
+    [self dys_propertyOfIvar];
+    [self dys_propertyOfMethod];
     [self dys_propertyOfDynamic];
     
+}
+
+#pragma mark - Ivar
+
+- (void)setProperty7:(NSString *)property7{
+}
+- (NSString *)property7{
+    return @"property7";
+}
+
+-(NSString *)property8{
+    return @"property8";
 }
 
 - (void)dys_propertyOfIvar{
@@ -96,6 +112,28 @@
      4.成员变量不必和属性一一匹配。
      例如：ivar7 和 ivar8，就只是纯粹的成员变量，没有对应的属性。
      
+     5.当你同时重写了 setter 和 getter 时，系统就不会生成 ivar（实例变量/成员变量）
+     例如：property7 就没有自动生成对应的_property7 的实例变量。
+     
+     6.重写了只读属性的 getter 时,系统就不会生成 ivar（实例变量/成员变量）
+     例如：property8 是只读属性，且重写了-(NSString *)property8 方法， 就没有自动生成对应的_property8 的实例变量。想想也没有必要。
+     
+     7.使用了 @dynamic 时,系统就不会生成 ivar（实例变量/成员变量）和set，get方法。
+     例如：property9
+     
+     8.在 @protocol 中定义的所有属性需要手动@synthesize 手动合成
+     例如：ViewControllerProtol中定义的，如果遵循ViewControllerProtol，则必须手动合成property10，否则会报警告，手动合成后不仅会生成相应的变量，还会生成相应的存取方法。
+     2018-11-03 21:24:58.219481+0800 PropertyStudy[13133:663785] ivar 7:property10
+     2018-11-03 21:24:58.220286+0800 PropertyStudy[13133:663785] method 4:property10
+     2018-11-03 21:24:58.220517+0800 PropertyStudy[13133:663785] method 5:setProperty10:
+     2018-11-03 21:24:58.206794+0800 PropertyStudy[13133:663785] propertyName 14:property10
+
+     9.在 category 中定义的所有属性，需要@dynamic
+     例如：ViewController (DYSDefaultCategory)中定义的property11，必须使用@dynamic property11; 手动实现其set和get方法。
+     
+     10.重载的属性。
+     当你在子类中重载了父类中的属性，你必须 使用 @synthesize 来手动合成ivar。否则默认使用父类定义的ivar。
+     例如：子类DYSDisablePeople的legnumber属性需要重载父类DYSPeople的legnumber，因为是特殊情况，所以需要手动合成ivar来重载父类属性。
      
      
      打印结果如下：
@@ -105,6 +143,7 @@
      2018-11-03 20:18:11.387277+0800 PropertyStudy[11778:592871] propertyName 4:property3
      2018-11-03 20:18:11.387370+0800 PropertyStudy[11778:592871] propertyName 5:property4
      2018-11-03 20:18:11.387471+0800 PropertyStudy[11778:592871] propertyName 6:property5
+     2018-11-03 20:18:11.387471+0800 PropertyStudy[11778:592871] propertyName 6:property7
      2018-11-03 20:18:11.387585+0800 PropertyStudy[11778:592871] ivar 1:ivar7
      2018-11-03 20:18:11.387683+0800 PropertyStudy[11778:592871] ivar 2:_property3
      2018-11-03 20:18:11.387786+0800 PropertyStudy[11778:592871] ivar 3:property4Exc
@@ -161,8 +200,26 @@
     //2018-11-03 21:05:34.512467+0800 PropertyStudy[12700:641940] -[DYSPeople setLastName:]: unrecognized selector sent to instance 0x600003a64b40
     //2018-11-03 21:05:34.592585+0800 PropertyStudy[12700:641940] *** Terminating app due to uncaught exception 'NSInvalidArgumentException', reason: '-[DYSPeople setLastName:]: unrecognized selector sent to instance 0x600003a64b40'
     //lastName 使用了dynamic 需要复写setLastName 和 lastName ，否则点语法使用时就会报错。
+ 
+    NSLog(@"people.legNumber:%ld",people.legNumber);
+
+    DYSDisablePeople *people2 = [DYSDisablePeople new];
+    NSLog(@"people2.legNumber:%ld",people2.legNumber);
     
 }
 
+
+
+@end
+
+
+@implementation ViewController (DYSDefaultCategory)
+
+@dynamic property11;
+-(NSString *)property11{
+    return @"property11";
+}
+-(void)setProperty11:(NSString *)property11{
+}
 
 @end

@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DYSPeople : NSObject
 @property (nonatomic ,copy) NSString *firstName;
 @property (nonatomic ,copy) NSString *lastName;
+@property (nonatomic ,assign) NSUInteger legNumber;
 
 @end
 

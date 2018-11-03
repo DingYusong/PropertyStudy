@@ -14,4 +14,13 @@
 
 @dynamic lastName;
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _legNumber = 2;
+    }
+    return self;
+}
+
 @end
