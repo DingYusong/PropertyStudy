@@ -8,8 +8,8 @@
 
 #import "ViewController.h"
 #import <objc/runtime.h>
-#import "DYSPeople.h"
-#import "DYSDisablePeople.h"
+#import "DYSDog.h"
+#import "DYSDisableDog.h"
 
 @interface ViewController (){
     NSString *_property3;
@@ -133,7 +133,7 @@
      
      10.重载的属性。
      当你在子类中重载了父类中的属性，你必须 使用 @synthesize 来手动合成ivar。否则默认使用父类定义的ivar。
-     例如：子类DYSDisablePeople的legnumber属性需要重载父类DYSPeople的legnumber，因为是特殊情况，所以需要手动合成ivar来重载父类属性。
+     例如：子类DYSDisableDog的legnumber属性需要重载父类DYSDog的legnumber，因为是特殊情况，所以需要手动合成ivar来重载父类属性。
      
      
      打印结果如下：
@@ -194,17 +194,17 @@
 }
 
 - (void)dys_propertyOfDynamic{
-    DYSPeople *people = [DYSPeople new];
-    people.firstName = @"丁";
-    //people.lastName = @"玉松";
-    //2018-11-03 21:05:34.512467+0800 PropertyStudy[12700:641940] -[DYSPeople setLastName:]: unrecognized selector sent to instance 0x600003a64b40
-    //2018-11-03 21:05:34.592585+0800 PropertyStudy[12700:641940] *** Terminating app due to uncaught exception 'NSInvalidArgumentException', reason: '-[DYSPeople setLastName:]: unrecognized selector sent to instance 0x600003a64b40'
+    DYSDog *dog = [DYSDog new];
+    dog.firstName = @"丁";
+    //dog.lastName = @"玉松";
+    //2018-11-03 21:05:34.512467+0800 PropertyStudy[12700:641940] -[DYSDog setLastName:]: unrecognized selector sent to instance 0x600003a64b40
+    //2018-11-03 21:05:34.592585+0800 PropertyStudy[12700:641940] *** Terminating app due to uncaught exception 'NSInvalidArgumentException', reason: '-[DYSDog setLastName:]: unrecognized selector sent to instance 0x600003a64b40'
     //lastName 使用了dynamic 需要复写setLastName 和 lastName ，否则点语法使用时就会报错。
  
-    NSLog(@"people.legNumber:%ld",people.legNumber);
+    NSLog(@"dog.legNumber:%ld",dog.legNumber);
 
-    DYSDisablePeople *people2 = [DYSDisablePeople new];
-    NSLog(@"people2.legNumber:%ld",people2.legNumber);
+    DYSDisableDog *dog2 = [DYSDisableDog new];
+    NSLog(@"dog2.legNumber:%ld",dog2.legNumber);
     
 }
 

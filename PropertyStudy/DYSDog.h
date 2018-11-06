@@ -1,5 +1,5 @@
 //
-//  DYSPeople.h
+//  DYSDog.h
 //  PropertyStudy
 //
 //  Created by DingYusong on 2018/11/3.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DYSPeople : NSObject
+@interface DYSDog : NSObject
 @property (nonatomic ,copy) NSString *firstName;
 @property (nonatomic ,copy) NSString *lastName;
 @property (nonatomic ,assign) NSUInteger legNumber;
