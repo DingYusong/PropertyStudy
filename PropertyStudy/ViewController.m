@@ -200,7 +200,7 @@
     //2018-11-03 21:05:34.512467+0800 PropertyStudy[12700:641940] -[DYSDog setLastName:]: unrecognized selector sent to instance 0x600003a64b40
     //2018-11-03 21:05:34.592585+0800 PropertyStudy[12700:641940] *** Terminating app due to uncaught exception 'NSInvalidArgumentException', reason: '-[DYSDog setLastName:]: unrecognized selector sent to instance 0x600003a64b40'
     //lastName 使用了dynamic 需要复写setLastName 和 lastName ，否则点语法使用时就会报错。
- 
+    
     NSLog(@"dog.legNumber:%ld",dog.legNumber);
 
     DYSDisableDog *dog2 = [DYSDisableDog new];
